@@ -7,9 +7,8 @@ import About from './views/About.vue'
 import Skripte from './views/Skripte.vue'
 import Novosti from './views/Novosti.vue'
 import Profil from './views/Profil.vue'
-import DetaljiSkripte from './components/DetaljiSkripte.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -40,11 +39,6 @@ export default new Router({
       path: '/skripte',
       name: 'skripte',
       component: Skripte
-    },
-    {
-      path: '/skripte/detalji',
-      name: 'detaljiSkripte',
-      component: DetaljiSkripte
     },
     {
       path: '/profil',
