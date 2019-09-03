@@ -145,12 +145,13 @@
             },
             spremiPromjene : function () {
                 if (this.$store.state.admin) {
-
+                    return null;
                 } else {
                     axios.put('http://127.0.0.1:5000/korisnik/registracija', this.korisnik)
                         .then((odg) => {
                             if (odg.data.data === true) {
                                 alert("Korisnik uspješno ažuriran!");
+                                this.edit = false;
                             }
                         })
                         .catch(() => {

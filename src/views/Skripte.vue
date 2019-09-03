@@ -19,9 +19,9 @@
                 type="file"
                 ref="skriptaInput"
         />
-        <b-button @click="$refs.skriptaInput.click()" class="custome-admin-btn" variant="danger"><i class="material-icons">add_circle</i> DODAJ SKRIPTU</b-button>
+        <b-button v-if="!this.$store.state.admin" @click="$refs.skriptaInput.click()" class="custome-admin-btn" variant="danger"><i class="material-icons">add_circle</i> DODAJ SKRIPTU</b-button>
         <b-button-group v-if="odabrana" class="dodatneOpcije">
-            <b-button variant="info" v-b-modal.modal-ocjenjivanje><i class="material-icons">stars</i>OCIJENI</b-button>
+            <b-button v-if="!this.$store.state.admin" variant="info" v-b-modal.modal-ocjenjivanje><i class="material-icons">stars</i>OCIJENI</b-button>
             <b-button @click="preuzimanje" variant="success"><i class="material-icons">file_download</i>PREUZMI</b-button>
             <b-button v-if="this.$store.state.admin" @click="ukloniSkriptu" variant="danger"><i class="material-icons">delete</i>UKLONI</b-button>
         </b-button-group>
@@ -100,6 +100,7 @@
                 axios.post("http://127.0.0.1:5000/skripte", this.dokument)
                     .then(() => {
                         alert("Skripta je uspjesno dodana.");
+                        this.ucitajSkripte();
                     })
                     .catch(() => {
                         alert("Doslo je do greske kod spremanja skripte.");
@@ -175,13 +176,8 @@
                 }, this);
             },
             preuzimanje : function () {
-
-                    var fileBlob = this.odabranaSkriptaPreuzimanje[4];
-                    fileBlob = fileBlob.split(',');
-
                     const url = URL.createObjectURL(new Blob([this.odabranaSkriptaPreuzimanje[4]]));
                     const link = document.createElement('a');
-                console.log(url);
                     link.href = url;
                     link.setAttribute('download', this.odabranaSkriptaPreuzimanje[2]);
                     document.body.appendChild(link);

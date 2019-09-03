@@ -103,6 +103,7 @@ export default {
             this.$store.state.trenutni_korisnik = odg.data.data;
             alert("Uspješno ste se registrirali!");
             this.resetirajSve();
+            this.$router.replace({name: "home"})
             })
             .catch((error) => {
               alert(error);

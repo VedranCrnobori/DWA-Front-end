@@ -5,7 +5,7 @@
       <ol v-if="ucitano">
         <li :id="index"  v-for="(obavjest, index) in obavijesti" :key="index">
           <h2 style="">{{obavjest[1]}}</h2>
-          <p>{{obavjest[2]}}</p>
+          <p style="word-break: break-all">{{obavjest[2]}}</p>
           <span>Datum objavljivanja: {{obavjest[3]}}</span>
         </li>
       </ol>
@@ -65,7 +65,6 @@
                 } else {
                   this.ucitano = true;
                 }
-                console.log('obavijesti: ', this.obavijesti);
               })
               .catch(() => {
                 alert("Nije moguce ucitati obavijesti.");
@@ -75,12 +74,18 @@
       this.novo.datumObjave = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
       axios.post("http://127.0.0.1:5000/obavijesti", this.novo)
               .then(() => {
+                this.resetForme();
                 this.getObavijesti();
                 this.prikazNovosti = false;
               })
               .catch(() => {
                 alert("Nije moguce objaviti.");
               })
+    },
+    resetForme : function () {
+      this.novo.naslov = '';
+      this.novo.tekst = '';
+      this.novo.datumObjave = '';
     }
   }
 }
